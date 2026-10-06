@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void islandsAndTreasure(vector<vector<int>>& grid) {
+        queue<tuple<int, int, int>> q;
+        const int m = grid.size();
+        const int n = grid[0].size();
+        const int DIR[4][2] = {{0,1}, {0,-1},{1,0},{-1,0}};
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    q.push({i, j, 0});
+                }
+            }
+        }
+        while (!q.empty()) {
+            auto [i, j, dist] = q.front();
+            for (int k = 0; k < 4; k++) {
+                int ni = i + DIR[k][0];
+                int nj = j + DIR[k][1];
+                if (ni >= 0 && ni < m && nj >= 0 && nj < n && grid[ni][nj] == 2147483647) {
+                    grid[ni][nj] = dist + 1;
+                    q.push({ni, nj, dist + 1});
+                }
+            }
+            q.pop();
+        }
+    }
+};
